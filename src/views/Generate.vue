@@ -62,6 +62,7 @@ import VideoSelect from "@/components/VideoSelect"
 import AudioSelect from "@/components/AudioSelect"
 import ImageSelect from "@/components/ImageSelect"
 import axios from  'axios'
+import 'element-plus/theme-chalk/index.css'
 
 export default {
   name:'Generate',
@@ -163,11 +164,24 @@ export default {
         // 设置request的参数
         data:formData
       }).then((res)=>{
+        const code=res.status.code;
+        switch(code)
+        {
+            //运行时出现错误，code=500
+            case 500:
+                Message.error('运行时出现错误');
+                return res.data;
+            //运行时没有错误，code=200
+            case 200:
+                Message.error('运行成功');
+            default:
+                console.log(code);
+        } 
         // 将视频流转换为blob数据，并使用creatObjectURL提取对应的url
         let blob = new Blob([res.data], {type:"video/*"});
         var url =  URL.createObjectURL(blob);
         // 设置video的src的url，在前端显示结果
-        this.$refs.video.src = (url)
+        this.$refs.video.src = (url);
       });
     },
   },
