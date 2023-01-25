@@ -2,8 +2,13 @@
   <div class="container" style="min-height: 100%;min-width: 60%; padding-bottom: 100px;">
     <el-container>
       <el-header></el-header>
-      <el-main>
-        <el-form
+      <!-- 加载动画 -->
+      <el-main 
+        v-loading.fullscreen="is_loading" 
+        element-loading-text="加载中"
+        class="loading-map"
+      >
+        <el-form 
             :model="ruleForm"
             :rules="rules"
             ref="ruleForm"
@@ -49,7 +54,8 @@
           </el-form-item>
         </el-form>
         <!-- 视频结果展示-->
-        <video  ref="video" :src="url" style="width: 300px; height: auto;" controls></video>
+        <!-- 后端没处理完，隐藏视频 -->
+        <video  ref="video" :src="url" v-show="url!=''" style="width: 300px; height: auto;" controls></video>
       </el-main>
       <el-footer></el-footer>
     </el-container>
@@ -116,7 +122,9 @@ export default {
           },
         ],
       },
-      url: ""
+      url: "",
+      //后端处理完成，将is_loading改为false
+      is_loading: false
     }
   },
   watch: {},
@@ -140,6 +148,9 @@ export default {
     },
     // 提交时间
     submitForm() {
+      //提交时出现加载动画
+      this.is_loading = true;
+
       let formData = new FormData();
       // 将text，aduio，video，target和tyoe放入传入后端的参数中
       formData.append('text', this.ruleForm.text)
@@ -213,4 +224,11 @@ export default {
   width: 50%;
   display: inline-block;
 }
+/*.loading-map .el-loading-spinner .path {
+  stroke: rgb(4, 120, 2);
+}
+.loading-map .el-loading-spinner .el-loading-text {
+  font-size: 1.8vh;
+  color: rgb(4, 120, 2);
+}*/
 </style>
