@@ -15,7 +15,7 @@
             label-width="30%"
             class="demo-border"
             id="uploadForm"
-        >
+        > 
           <!-- 文本输入框-->
           <el-form-item label="请输入要合成的文本内容" prop="text">
             <el-input   class="textarea" v-model="ruleForm.text"></el-input>
@@ -175,6 +175,9 @@ export default {
         // 设置request的参数
         data:formData
       }).then((res)=>{
+        //后端处理完成，将is_loading改为false
+        this.is_loading = false;
+
         const code=res.status.code;
         switch(code)
         {
