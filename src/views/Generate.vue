@@ -2,12 +2,14 @@
   <div class="container" style="min-height: 100%;min-width: 60%; padding-bottom: 100px;">
     <el-container>
       <el-header></el-header>
+      <el-main>
       <!-- 加载动画 -->
-      <el-main 
+      <div
         v-loading.fullscreen="is_loading" 
         element-loading-text="加载中"
         class="loading-map"
       >
+      </div>
         <el-form 
             :model="ruleForm"
             :rules="rules"
