@@ -4,12 +4,12 @@
       <el-header></el-header>
       <el-main>
       <!-- 加载动画 -->
-      <div
-        v-loading.fullscreen="is_loading" 
-        element-loading-text="加载中"
-        class="loading-map"
-      >
-      </div>
+        <div>
+          <transition name="fade">
+            <loading v-if="is_loading"></loading>
+          </transition>
+        </div>
+
         <el-form 
             :model="ruleForm"
             :rules="rules"
@@ -69,13 +69,14 @@
 import VideoSelect from "@/components/VideoSelect"
 import AudioSelect from "@/components/AudioSelect"
 import ImageSelect from "@/components/ImageSelect"
+import Loading from "@/components/Loading"
 import axios from  'axios'
 import 'element-plus/theme-chalk/index.css'
 
 export default {
   name:'Generate',
   props: [],
-  components: {VideoSelect, AudioSelect, ImageSelect},
+  components: {VideoSelect, AudioSelect, ImageSelect, Loading},
   data() {
     return {
       //提交的表格的参数
@@ -229,11 +230,5 @@ export default {
   width: 50%;
   display: inline-block;
 }
-/*.loading-map .el-loading-spinner .path {
-  stroke: rgb(4, 120, 2);
-}
-.loading-map .el-loading-spinner .el-loading-text {
-  font-size: 1.8vh;
-  color: rgb(4, 120, 2);
-}*/
+
 </style>
