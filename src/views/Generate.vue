@@ -10,14 +10,14 @@
           </transition>
         </div>
 
-        <el-form 
+        <el-form
             :model="ruleForm"
             :rules="rules"
             ref="ruleForm"
             label-width="30%"
             class="demo-border"
             id="uploadForm"
-        > 
+        >
           <!-- 文本输入框-->
           <el-form-item label="请输入要合成的文本内容" prop="text">
             <el-input   class="textarea" v-model="ruleForm.text"></el-input>
@@ -58,6 +58,7 @@
         <!-- 视频结果展示-->
         <!-- 后端没处理完，隐藏视频 -->
         <video  ref="video" :src="url" v-show="url!=''" style="width: 300px; height: auto;" controls></video>
+<!--        <video  ref="video" :src="url" style="width: 300px; height: auto;" controls></video>-->
       </el-main>
       <el-footer></el-footer>
     </el-container>
@@ -72,6 +73,8 @@ import ImageSelect from "@/components/ImageSelect"
 import Loading from "@/components/Loading"
 import axios from  'axios'
 import 'element-plus/theme-chalk/index.css'
+import { ElMessage } from 'element-plus'
+
 
 export default {
   name:'Generate',
@@ -178,27 +181,66 @@ export default {
         // 设置request的参数
         data:formData
       }).then((res)=>{
+
+
         //后端处理完成，将is_loading改为false
         this.is_loading = false;
 
-        const code=res.status.code;
-        switch(code)
-        {
-            //运行时出现错误，code=500
-            case 500:
-                Message.error('运行时出现错误');
-                return res.data;
-            //运行时没有错误，code=200
-            case 200:
-                Message.error('运行成功');
-            default:
-                console.log(code);
-        } 
-        // 将视频流转换为blob数据，并使用creatObjectURL提取对应的url
-        let blob = new Blob([res.data], {type:"video/*"});
-        var url =  URL.createObjectURL(blob);
-        // 设置video的src的url，在前端显示结果
-        this.$refs.video.src = (url);
+        console.log(res)
+
+        const code=res.status;
+
+        if (code === 200) {
+          // 将视频流转换为blob数据，并使用creatObjectURL提取对应的url
+          let blob = new Blob([res.data], {type:"video/*"});
+          this.url =  URL.createObjectURL(blob);
+          // 设置video的src的url，在前端显示结果
+          this.$refs.video.src = (this.url);
+        }
+        else{
+          //当后端返回code非200时，根据后端返回显示报错信息
+          const  READER = new FileReader();
+          READER.addEventListener("loadend", function(e) {
+            // console.log(e.target.result)// 此处输出结果
+            ElMessage({
+              showClose: true,
+              message: e.target.result,
+              type: 'error',
+              duration: '10000'
+            })
+            // ElMessage.error('错了哦，这是一条错误消息')
+          });
+          READER.readAsText(res.data);
+          return res.data;
+        }
+
+        // switch(code)
+        // {
+        //     //运行时出现错误，code=500
+        //     case 201:
+        //       //在前端控制台输出后端传来的报错信息
+        //       const  READER = new FileReader();
+        //       READER.addEventListener("loadend", function(e) {
+        //         console.log(e.target.result)// 此处输出结果
+        //       });
+        //       READER.readAsText(res.data);
+        //       this.$message.error("")
+        //       return res.data;
+        //     //运行时没有错误，code=200
+        //     case 200:
+        //       // 将视频流转换为blob数据，并使用creatObjectURL提取对应的url
+        //       let blob = new Blob([res.data], {type:"video/*"});
+        //       this.url =  URL.createObjectURL(blob);
+        //       // 设置video的src的url，在前端显示结果
+        //       this.$refs.video.src = (this.url);
+        //     default:
+        //       //在前端控制台输出后端传来的报错信息
+        //       const  READER = new FileReader();
+        //       READER.addEventListener("loadend", function(e) {
+        //         console.log(e.target.result)// 此处输出结果
+        //       });
+        //       READER.readAsText(res.data);
+        // }
       });
     },
   },
