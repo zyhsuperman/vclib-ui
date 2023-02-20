@@ -27,10 +27,11 @@
             <el-select v-model="ruleForm.target" placeholder="请选择合成目标">
               <el-option label="英文" value="english"></el-option>
               <el-option label="cyw普通话" value="cyw_mandarin"></el-option>
+              <el-option label="普通话" value="mandarin"></el-option>
             </el-select>
           </el-form-item>
           <!-- 选择英文克隆时，音频文件选择-->
-          <el-form-item v-if="ruleForm.target==='english'" label="音频文件上传">
+          <el-form-item v-if="ruleForm.target==='english' || ruleForm.target==='mandarin' " label="音频文件上传">
             <audio-select v-model="ruleForm.audio"></audio-select>
           </el-form-item>
           <!-- 合成类型单选框-->
@@ -196,6 +197,12 @@ export default {
           this.url =  URL.createObjectURL(blob);
           // 设置video的src的url，在前端显示结果
           this.$refs.video.src = (this.url);
+          ElMessage({
+            showClose: true,
+            message: "运行成功",
+            type: 'success',
+            duration: '3000'
+          })
         }
         else{
           //当后端返回code非200时，根据后端返回显示报错信息
@@ -211,7 +218,6 @@ export default {
             // ElMessage.error('错了哦，这是一条错误消息')
           });
           READER.readAsText(res.data);
-          return res.data;
         }
 
         // switch(code)
