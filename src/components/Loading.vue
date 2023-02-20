@@ -14,6 +14,7 @@ export default {
   left: 0;
   top: 0;
   background: url('~@/assets/img/loading.svg') center center no-repeat #fff;
+  opacity: 0.7;
   width: 100vw;
   height: 100vh;
   z-index: 1000;
