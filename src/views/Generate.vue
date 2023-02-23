@@ -52,7 +52,7 @@
 
           <!-- 按钮组-->
           <el-form-item>
-            <el-button type="primary" @click="submitForm">上传合成</el-button>
+            <el-button type="primary" :disabled="is_disabled" @click="submitForm">上传合成</el-button>
             <el-button @click="resetForm">重置</el-button>
           </el-form-item>
         </el-form>
@@ -131,10 +131,27 @@ export default {
       },
       url: "",
       //后端处理完成，将is_loading改为false
-      is_loading: false
+      is_loading: false,
+      //提交按钮默认为不可点击
+      is_disabled: true,
     }
   },
-  watch: {},
+  watch: {    
+    ruleForm: {
+      handler: function (val) {
+        //监听并校验输入内容
+        this.$refs.ruleForm.validate(valid => {
+          if (!valid) {
+            this.is_disabled = true;
+          }
+          else {
+            this.is_disabled = false;
+          };
+        });
+      },
+      deep: true
+    },
+  },
   computed: {},
   beforeCreate() {},
   created() {},
