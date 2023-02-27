@@ -68,10 +68,10 @@
 
 <script>
 
-import VideoSelect from "@/components/VideoSelect"
-import AudioSelect from "@/components/AudioSelect"
-import ImageSelect from "@/components/ImageSelect"
-import Loading from "@/components/Loading"
+import VideoSelect from "../components/VideoSelect.vue"
+import AudioSelect from "../components/AudioSelect.vue"
+import ImageSelect from "../components/ImageSelect.vue"
+import Loading from "../components/Loading.vue"
 import axios from  'axios'
 import 'element-plus/theme-chalk/index.css'
 import { ElMessage } from 'element-plus'
