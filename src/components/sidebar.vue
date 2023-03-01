@@ -63,7 +63,7 @@ const items = [
         permiss: '1',
     },
     {
-        icon: 'Odometer',
+        icon: 'VideoPlay',
         index: '/Generate',
         title: '合成',
         permiss: '1',
