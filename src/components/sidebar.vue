@@ -68,7 +68,7 @@ const items = [
         title: '合成',
         permiss: '1',
     },
-    {
+    /*{
         icon: 'Calendar',
         index: '1',
         title: '表格相关',
@@ -143,7 +143,7 @@ const items = [
         index: '/charts',
         title: 'schart图表',
         permiss: '11',
-    },
+    },*/
     {
         icon: 'Warning',
         index: '/permission',
@@ -152,8 +152,8 @@ const items = [
     },
     {
         icon: 'CoffeeCup',
-        index: '/donate',
-        title: '支持作者',
+        index: '/AboutUs',
+        title: '关于我们',
         permiss: '14',
     },
 ];

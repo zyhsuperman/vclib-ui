@@ -67,13 +67,13 @@ const routes: RouteRecordRaw[] = [
                 component: () => import(/* webpackChunkName: "tabs" */ '../views/tabs.vue'),
             },
             {
-                path: '/donate',
-                name: 'donate',
+                path: '/AboutUs',
+                name: 'AboutUs',
                 meta: {
-                    title: '鼓励作者',
+                    title: '关于我们',
                     permiss: '14',
                 },
-                component: () => import(/* webpackChunkName: "donate" */ '../views/donate.vue'),
+                component: () => import(/* webpackChunkName: "donate" */ '../views/AboutUs.vue'),
             },
             {
                 path: '/permission',
