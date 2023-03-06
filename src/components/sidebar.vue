@@ -70,7 +70,7 @@ const items = [
     },
     {
         icon: 'Scissor',
-        index: '/Partition',
+        index: '/Diarization',
         title: '语音分割',
         permiss: '1',
     },
