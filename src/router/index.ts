@@ -23,12 +23,21 @@ const routes: RouteRecordRaw[] = [
             },
             {
                 path: '/generate',
-                name: '测试页面',
+                name: 'generate',
                 meta: {
                     title: '合成',
                     permiss: '1',
                 },
-                component: () => import(/* webpackChunkName: "dashboard" */ '../views/Generate.vue'),
+                component: () => import(/* webpackChunkName: "Generate" */ '../views/Generate.vue'),
+            },
+            {
+                path: '/partition',
+                name: 'partition',
+                meta: {
+                    title: '语音分割',
+                    permiss: '1',
+                },
+                component: () => import(/* webpackChunkName: "Partition" */ '../views/Partition.vue'),
             },
             {
                 path: '/table',

@@ -68,6 +68,12 @@ const items = [
         title: '合成',
         permiss: '1',
     },
+    {
+        icon: 'Scissor',
+        index: '/Partition',
+        title: '语音分割',
+        permiss: '1',
+    },
     /*{
         icon: 'Calendar',
         index: '1',
