@@ -95,9 +95,9 @@
   </div>
 </template>
 <script>
-import VideoSelect from "@/components/VideoSelect.vue";
-import AudioSelect from "@/components/AudioSelect.vue";
-import Loading from "@/components/Loading.vue";
+import VideoSelect from "../components/VideoSelect.vue";
+import AudioSelect from "../components/AudioSelect.vue";
+import Loading from "../components/Loading.vue";
 import {ElMessage} from "element-plus";
 import axios from  'axios';
 import 'element-plus/theme-chalk/index.css';

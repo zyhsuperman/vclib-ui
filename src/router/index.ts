@@ -31,13 +31,13 @@ const routes: RouteRecordRaw[] = [
                 component: () => import(/* webpackChunkName: "Generate" */ '../views/Generate.vue'),
             },
             {
-                path: '/partition',
-                name: 'partition',
+                path: '/Diarization',
+                name: 'Diarization',
                 meta: {
                     title: '语音分割',
                     permiss: '1',
                 },
-                component: () => import(/* webpackChunkName: "Partition" */ '../views/Partition.vue'),
+                component: () => import(/* webpackChunkName: "Diarization" */ '../views/Diarization.vue'),
             },
             {
                 path: '/table',
