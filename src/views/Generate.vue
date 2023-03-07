@@ -68,10 +68,10 @@
 
 <script>
 
-import VideoSelect from "@/components/VideoSelect"
-import AudioSelect from "@/components/AudioSelect"
-import ImageSelect from "@/components/ImageSelect"
-import Loading from "@/components/Loading"
+import VideoSelect from "../components/VideoSelect.vue"
+import AudioSelect from "../components/AudioSelect.vue"
+import ImageSelect from "../components/ImageSelect.vue"
+import Loading from "../components/Loading.vue"
 import axios from  'axios'
 import 'element-plus/theme-chalk/index.css'
 import { ElMessage } from 'element-plus'
@@ -170,7 +170,7 @@ export default {
 
       console.log("submit!")
     },
-    // 提交时间
+    // 提交表单
     submitForm() {
       //提交时出现加载动画
       this.is_loading = true;
@@ -195,7 +195,7 @@ export default {
           "Content-Type": "multipart/form-data"
         },
         responseType: "blob",
-        withCredentials:true,
+        withCredentials: true,
         // 设置request的参数
         data:formData
       }).then((res)=>{
@@ -218,7 +218,7 @@ export default {
             showClose: true,
             message: "运行成功",
             type: 'success',
-            duration: '3000'
+            duration: 3000
           })
         }
         else{
@@ -230,40 +230,12 @@ export default {
               showClose: true,
               message: e.target.result,
               type: 'error',
-              duration: '10000'
+              duration: 5000
             })
             // ElMessage.error('错了哦，这是一条错误消息')
           });
           READER.readAsText(res.data);
         }
-
-        // switch(code)
-        // {
-        //     //运行时出现错误，code=500
-        //     case 201:
-        //       //在前端控制台输出后端传来的报错信息
-        //       const  READER = new FileReader();
-        //       READER.addEventListener("loadend", function(e) {
-        //         console.log(e.target.result)// 此处输出结果
-        //       });
-        //       READER.readAsText(res.data);
-        //       this.$message.error("")
-        //       return res.data;
-        //     //运行时没有错误，code=200
-        //     case 200:
-        //       // 将视频流转换为blob数据，并使用creatObjectURL提取对应的url
-        //       let blob = new Blob([res.data], {type:"video/*"});
-        //       this.url =  URL.createObjectURL(blob);
-        //       // 设置video的src的url，在前端显示结果
-        //       this.$refs.video.src = (this.url);
-        //     default:
-        //       //在前端控制台输出后端传来的报错信息
-        //       const  READER = new FileReader();
-        //       READER.addEventListener("loadend", function(e) {
-        //         console.log(e.target.result)// 此处输出结果
-        //       });
-        //       READER.readAsText(res.data);
-        // }
       });
     },
   },
