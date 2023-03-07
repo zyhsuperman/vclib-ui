@@ -3,6 +3,7 @@
 <template>
   <label class="audio-select">
     <div class="select-button">
+      <el-icon-microphone style="margin-top: 1em;width: 50px;"></el-icon-microphone><br>
       <span v-if="modelValue">Selected File: {{modelValue.name}}</span>
       <span v-else>Select File</span>
     </div>
@@ -29,16 +30,23 @@ export default {
 
 <style scoped>
 .audio-select > .select-button {
-  padding: 1rem;
+  padding: 5px;
 
-  color: white;
-  background-color: #2EA169;
+  color: #808695;
+  background-color: #fafafa;
 
+  border: 2px solid #E5E5E5;
   border-radius: .3rem;
-  width: 500px;
+  width: 435px;
 
   text-align: center;
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
+  
+  transition: background-color .2s linear;
+}
+.audio-select > .select-button:hover {
+  background-color: #f0f0f0;
 }
 
 /* Don't forget to hide the original file input! */
