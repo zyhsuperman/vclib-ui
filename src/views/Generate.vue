@@ -19,8 +19,8 @@
             id="uploadForm"
         >
           <!-- 文本输入框-->
-          <el-form-item label="请输入要合成的文本内容" prop="text">
-            <el-input   class="textarea" v-model="ruleForm.text"></el-input>
+          <el-form-item label="请输入文本内容" prop="text">
+            <el-input   class="textarea" v-model="ruleForm.text" maxlength="20" show-word-limit></el-input>
           </el-form-item>
           <!-- 合成目标选择-->
           <el-form-item label="请选择合成目标" prop="target">
