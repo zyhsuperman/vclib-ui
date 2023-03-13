@@ -23,7 +23,10 @@
 					</el-input>
 				</el-form-item>
 				<div class="login-btn">
-					<el-button type="primary" @click="submitForm(login)">登录</el-button>
+					<el-button type="primary" @click="submitForm(login)">用户登录</el-button>
+				</div>
+				<div class="login-btn">
+					<el-button type="primary" @click="submitForm(login)">游客登录</el-button>
 				</div>
 				<p class="login-tips">Tips : 用户名和密码随便填。</p>
 			</el-form>
@@ -72,7 +75,10 @@ const submitForm = (formEl: FormInstance | undefined) => {
 			const keys = permiss.defaultList[param.username == 'admin' ? 'admin' : 'user'];
 			permiss.handleSet(keys);
 			localStorage.setItem('ms_keys', JSON.stringify(keys));
-			router.push('/');
+			//router.push('/');
+			
+			//登陆成功，跳转到主页面
+			router.push('/dashboard');
 		} else {
 			ElMessage.error('登录成功');
 			return false;
