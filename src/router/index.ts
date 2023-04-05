@@ -5,7 +5,8 @@ import Home from '../views/home.vue';
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
-        redirect: '/dashboard',
+        //修改开始页面为login
+        redirect: '/login',
     },
     {
         path: '/',
