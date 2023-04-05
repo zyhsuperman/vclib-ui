@@ -152,14 +152,43 @@ export default {
       show: false,
       row: "",
       url: "",
+      screenSize: {
+        width: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+        height: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
+      },
     }
   },
-  watch: {},
+  watch: {
+    screenWidth(val) {
+      // 避免频繁触发resize函数导致页面卡顿，使用定时器
+      if (!this.timer) {
+        this.screenSize.width = val;
+        this.timer = true;
+        let that = this;
+        setTimeout(function () {
+          that.timer = false;
+        }, 400);
+      }
+    },
+  },
   computed: {},
   beforeCreate() {},
   created() {},
   beforeMount() {},
-  mounted() {},
+  mounted() {
+    window.addEventListener('resize', this.onresize);
+    const that = this;
+    window.onresize = () => {
+      return (() => {
+        (window.screenWidth =
+          window.innerWidth ||
+          document.documentElement.clientWidth ||
+          document.body.clientWidth),
+          (that.screenSize.width = window.screenWidth);
+        this.setNew();
+      })();
+    }
+  },
   beforeUpdate() {},
   updated() {},
   destroyed() {},
@@ -276,12 +305,69 @@ export default {
           })
         }
       })
+    },
+    //防抖
+    debounce(fn, t) {
+      const delay = t || 500;
+      let timer;
+      return function () {
+        const args = arguments;
+        if (timer) {
+          clearTimeout(timer);
+        }
+        const context = this;
+        timer = setTimeout(() => {
+          timer = null;
+          fn.apply(context, args);
+        }, delay);
+      };
+    },
+    //设置字体大小
+    setFontSize() {
+      const that = this;
+      var obj = document.getElementsByTagName("label");
+      obj = Array.from(obj);
+      obj.forEach(function(element) {
+        //console.log("resize font"+element.style.fontSize);
+        element.style.fontSize = (that.screenSize.width / 2048) * 22 + "px";
+      });
+    },
+    setNew() {
+      this.setFontSize();
+      this.debounce(() => this.setFontSize(), 100);
     }
-  }
+  },
+  //页面销毁前移除resize
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onresize);
+  },
 }
 </script>
 
 <style scoped>
-
+.container {
+  text-align: center;
+  background: url("../assets/img/background.png");
+  background-size: cover;
+}
+#uploadForm >>> .el-form-item__label {
+  font-size: 18px;
+  line-height: 2rem;
+  vertical-align: middle;
+  color: #3a4253;
+}
+#uploadForm >>> .el-form-item {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.demo-border {
+  border: 1px grey ;
+  min-height: 1rem;
+  border-radius: 15px;
+  width: 80%;
+  display: inline-block;
+  padding: 2% auto;
+  background: rgba(243,243,243,0.5);
+}
 
 </style>

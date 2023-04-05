@@ -34,7 +34,7 @@ export default {
 
   border: 2px solid #E5E5E5;
   border-radius: .3rem;
-  width: 435px;
+  width: 25vw;
 
   text-align: center;
   font-family: 'Roboto', sans-serif;
