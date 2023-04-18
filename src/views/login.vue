@@ -1,5 +1,13 @@
 <template>
 	<div class="login-wrap">
+		<div class="ms-headbar">
+			<div class="headbar-btn-user">
+				<el-button type="primary" @click="submitForm(login)">用户登录</el-button>
+			</div>
+			<div class="headbar-btn-visitor">
+				<el-button type="primary" @click="submitForm(login)">游客登录</el-button>
+			</div>
+		</div>
 		<div class="ms-login">
 			<div class="ms-title">后台管理系统</div>
 			<el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
@@ -22,9 +30,14 @@
 						</template>
 					</el-input>
 				</el-form-item>
+				<!--
 				<div class="login-btn">
-					<el-button type="primary" @click="submitForm(login)">登录</el-button>
+					<el-button type="primary" @click="submitForm(login)">用户登录</el-button>
 				</div>
+				<div class="login-btn">
+					<el-button type="primary" @click="submitForm(login)">游客登录</el-button>
+				</div>
+				-->
 				<p class="login-tips">Tips : 用户名和密码随便填。</p>
 			</el-form>
 		</div>
@@ -47,8 +60,8 @@ interface LoginInfo {
 
 const router = useRouter();
 const param = reactive<LoginInfo>({
-	username: 'admin',
-	password: '123123'
+	username: '',
+	password: ''
 });
 
 const rules: FormRules = {
@@ -72,9 +85,12 @@ const submitForm = (formEl: FormInstance | undefined) => {
 			const keys = permiss.defaultList[param.username == 'admin' ? 'admin' : 'user'];
 			permiss.handleSet(keys);
 			localStorage.setItem('ms_keys', JSON.stringify(keys));
-			router.push('/');
+			//router.push('/');
+			
+			//登陆成功，跳转到主页面
+			router.push('/dashboard');
 		} else {
-			ElMessage.error('登录成功');
+			ElMessage.error('请输入用户名和密码');
 			return false;
 		}
 	});
@@ -125,5 +141,27 @@ tags.clearTags();
 	font-size: 12px;
 	line-height: 30px;
 	color: #fff;
+}
+.headbar-btn-user{
+	width:60px;
+	height:36px;
+	text-align: center;
+	position: absolute;
+	right: 13%;
+	top: 10px;
+	color: #fff;
+}
+.headbar-btn-visitor{
+	width:60px;
+	height:36px;
+	text-align: center;
+	position: absolute;
+	right: 6%;
+	top: 10px;
+	color: #fff;
+}
+.ms-headbar{
+	width: 100%;
+	height : 40px;
 }
 </style>
